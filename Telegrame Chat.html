@@ -1,0 +1,133 @@
+<!-- Load Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro&display=swap" rel="stylesheet">
+<!-- Chat Box Styles -->
+<style>
+  .chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffb300;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Kantumruy Pro', sans-serif;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+
+  .chat-box {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 300px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    display: none;
+    flex-direction: column;
+    font-family: 'Kantumruy Pro', sans-serif;
+    z-index: 1000;
+  }
+
+  .chat-header {
+    background: #ffc107;
+    padding: 10px;
+    color: #000;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align: center;
+  }
+
+  .chat-body {
+    padding: 10px;
+    height: 150px;
+    overflow-y: auto;
+    font-size: 14px;
+    background: #f9f9f9;
+  }
+
+  .chat-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+  }
+
+  .chat-input input {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    font-size: 14px;
+    font-family: 'Kantumruy Pro', sans-serif;
+  }
+
+  .chat-input button {
+    padding: 8px 12px;
+    border: none;
+    background: #ffb300;
+    color: white;
+    cursor: pointer;
+    font-family: 'Kantumruy Pro', sans-serif;
+  }
+
+  .chat-message {
+    margin-bottom: 10px;
+  }
+
+  .chat-message.user {
+    text-align: right;
+    color: #444;
+  }
+
+  .chat-message.bot {
+    text-align: left;
+    color: #666;
+  }
+</style>
+
+<!-- Chat Button -->
+<button class="chat-button" onclick="toggleChat()">Chat</button>
+
+<!-- Chat Box -->
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">ជជែកជាមួយយើង</div>
+  <div class="chat-body" id="chatBody">
+    <div class="chat-message bot">សួស្តី! សូមសរសេរប្រសាសន៍របស់អ្នក។</div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="សរសេរប្រសាសន៍...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<!-- Chat Script -->
+<script>
+  function toggleChat() {
+    var box = document.getElementById("chatBox");
+    box.style.display = box.style.display === "flex" ? "none" : "flex";
+  }
+
+  function sendMessage() {
+    var input = document.getElementById("chatInput");
+    var message = input.value.trim();
+    if (message) {
+      var chatBody = document.getElementById("chatBody");
+
+      // Display user message in box
+      var userMsg = document.createElement("div");
+      userMsg.className = "chat-message user";
+      userMsg.textContent = message;
+      chatBody.appendChild(userMsg);
+
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      // Open Telegram with pre-filled message
+      var encodedMessage = encodeURIComponent(message);
+      var telegramURL = "https://t.me/W88pix?text=" + encodedMessage;
+      window.open(telegramURL, "_blank");
+
+      input.value = "";
+    }
+  }
+</script>
