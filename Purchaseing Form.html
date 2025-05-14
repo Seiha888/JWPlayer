@@ -3,7 +3,7 @@
   .form-container {
     max-width: 400px;
     margin: auto;
-    padding: 20px;
+    padding: 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
     font-family: sans-serif;
@@ -21,7 +21,8 @@
   }
 
   .form-container input[type="text"],
-  .form-container input[type="number"] {
+  .form-container input[type="number"],
+  .form-container input[type="date"] {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -29,7 +30,6 @@
   }
 
   .form-container input[type="radio"] {
-    transform: scale(0.6); /* Shrink radio button to approx 6px */
     margin-right: 8px;
   }
 
@@ -51,8 +51,8 @@
   }
 
   .qr-code img {
-    width: 100%;
-    max-width: 200px;
+    width: 106px;
+    height: auto;  /* Automatically adjust the height to maintain aspect ratio */
     border: 1px solid #ccc;
     border-radius: 5px;
   }
@@ -82,6 +82,9 @@
     <label>Quantity:</label>
     <input type="number" id="quantity" required />
 
+    <label>Purchase Date:</label>
+    <input type="date" id="date" required />
+
     <label>Payment Method:</label>
     <div class="payment-options">
       <label><input type="radio" name="payment" value="ABA" required /> ABA</label>
@@ -106,6 +109,7 @@
     const name = document.getElementById("name").value;
     const product = document.getElementById("product").value;
     const quantity = document.getElementById("quantity").value;
+    const date = document.getElementById("date").value;
     const aba = document.getElementById("aba").value;
 
     const paymentRadios = document.getElementsByName("payment");
@@ -117,7 +121,8 @@
       }
     }
 
-    const message = `🛒 New Purchase Request\n\n👤 Name: ${name}\n📦 Product: ${product}\n🔢 Quantity: ${quantity}\n💳 Payment Method: ${payment}\n🏦 ABA Account: ${aba}`;
+    // Updated message without emojis
+    const message = `New Purchase Request\n\nName: ${name}\nProduct: ${product}\nQuantity: ${quantity}\nDate: ${date}\nPayment Method: ${payment}\nABA Account: ${aba}`;
 
     const telegramUrl = "tg://resolve?domain=W88pix&text=" + encodeURIComponent(message);
     window.open(telegramUrl, "_blank");
